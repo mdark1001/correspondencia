@@ -1,0 +1,37 @@
+
+# Created by https://www.gitignore.io/api/angular
+
+### Angular ###
+## Angular ##
+# compiled output
+/app_spoty_front/dist
+/app_spoty_front/tmp
+/app_spoty_front/app/**/*.js
+/app_spoty_front/app/**/*.js.map
+
+# dependencies
+/app_spoty_front/node_modules
+/app_spoty_front/bower_components
+
+# IDEs and editors
+/app_spoty_front/.idea
+/.idea
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/app_spoty_front/e2e/*.js
+/app_spoty_front/e2e/*.map
+
+#System Files
+.DS_Store
+
+
+# End of https://www.gitignore.io/api/angular
