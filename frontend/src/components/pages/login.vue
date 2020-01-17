@@ -44,6 +44,7 @@
 </template>
 <script>
 import notification from '../commun/notification.vue'
+
 export default {
   name: 'Login',
   components: { notification },
@@ -74,13 +75,13 @@ export default {
           password: this.user.password,
           gethash: true
         }).then(data => {
-          console.log(data)
           this.is_loading = false
-          this.USER.setData(data.data.user_data, data.data.token)
+          console.log(data.data.data)
+          this.USER.setData(data.data, data.data.data.user.token)
           this.$router.push('/home')
         }).catch(error => {
-          console.log(error.response.data.message)
-          this.showNotification(error.response.data.message, 'danger')
+          console.log(error)
+          this.showNotification(error, 'danger')
         })
       } else {
         this.showNotification('Por favor revise los datos de usuario y contraseña', 'danger')

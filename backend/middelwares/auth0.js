@@ -5,7 +5,7 @@ var moment = require('moment');
 const secret = '4a63f76ca6f6';
 
 exports.ensureAuth0 = function (req, res, next) {
-    console.log(req.headers.authorization);
+    //console.log(req.headers.authorization);
     if (!req.headers.authorization) {
         return res.status(403).send({
             message: 'La petición no tiene los headers necesarios'

@@ -4,7 +4,6 @@
       <a class="navbar-item">
         <img src="/image/icon.svg">
       </a>
-
       <a role="button" class="navbar-burger burger" :class="{'is-active':active_menu}"
          aria-label="menu" aria-expanded="false"
          @click="active_menu=!active_menu"
@@ -43,7 +42,7 @@
         <div class="navbar-item">
           <div class="navbar-item has-dropdown is-hoverable ">
             <a class="navbar-link">
-              {{ user.nombre_completo }}
+              {{ getName }}
             </a>
             <div class="navbar-dropdown">
               <a class="navbar-item" @click="singout()">
@@ -68,6 +67,7 @@ export default {
       this.$router.push('/login')
     } else {
       this.user = this.USER.getUser()
+      // console.log(this.user);
     }
   },
   data: function () {
@@ -81,6 +81,11 @@ export default {
     singout: function () {
       this.USER.logout()
       this.$router.push('/login')
+    }
+  },
+  computed: {
+    getName () {
+      return `${this.USER.getFullName()}`
     }
   }
 

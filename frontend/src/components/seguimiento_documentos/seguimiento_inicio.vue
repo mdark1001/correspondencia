@@ -20,8 +20,39 @@
         </div>
         <div class="column">
           <div class="box">
-            <p class="title is-5">Flexible column</p>
-            <p class="subtitle">This column will take up the remaining space available.</p>
+            <section class="hero">
+              <div class="hero-body">
+                <div class="container">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="content">
+                        <div class="control has-icons-left has-icons-right">
+                          <input class="input is-large" type="search"/>
+                          <span class="icon is-medium is-left">
+                            <i class="fa fa-search"></i>
+                        </span>
+                          <span class="icon is-medium is-right">
+                            <i class="fa fa-empire"></i>
+                        </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="columns is-mobile is-multiline cards-container" id="sectioncontainer">
+              <columna-tablero-seguimiento :columna="en_borrador"></columna-tablero-seguimiento>
+              <columna-tablero-seguimiento :columna="en_proceso"></columna-tablero-seguimiento>
+              <columna-tablero-seguimiento :columna="en_hecho"></columna-tablero-seguimiento>
+
+            </div>
+
+            <div class="columns is-mobile is-centered">
+              <div class="column is-half is-narrow"></div>
+            </div>
+
           </div>
         </div>
         <fab
@@ -40,14 +71,17 @@
 </template>
 <script>
 import AltaSeguimientoDocumento from './alta_seguimiento_documento.vue'
+import columnaTableroSeguimiento from './columnaTableroSeguimiento.vue'
 import fab from 'vue-fab'
+import DocumentosSeguimientoServices from '../../services/seguimiento_documentos'
 
+const documentosSeguimientoServices = new DocumentosSeguimientoServices()
 export default {
-  components: { AltaSeguimientoDocumento, fab },
+  components: { AltaSeguimientoDocumento, fab, columnaTableroSeguimiento },
   data: function () {
     return {
       mostarFormulario: true,
-      bgColor: '#FF0C0C',
+      bgColor: '#00abbc',
       position: 'top-right',
       fabActions: [
         {
@@ -58,8 +92,33 @@ export default {
           name: 'alertMe',
           icon: 'add_alert'
         }
-      ]
+      ],
+      en_proceso: {
+        'title': 'En proceso',
+        'className': 'is-primary'
+      },
+      en_borrador: {
+        'title': 'Borrador',
+        'className': 'is-dark'
+      },
+      en_hecho: {
+        'title': 'Hecho',
+        'className': 'is-success'
+      }
+
     }
+  },
+  mounted: function () {
+    if (!this.USER.isAuthenticated()) {
+      this.$router.push('/login')
+    }
+    documentosSeguimientoServices.getAllDocumentosSeguimientoGroups(this.USER.getToken(), this.USER.getUserId(), {
+      page: 1
+    }).then((data) => {
+
+    }).catch((err) => {
+      console.log(err)
+    })
   },
   methods: {
     AgregarDocumento () {

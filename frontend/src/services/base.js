@@ -2,14 +2,14 @@ import JQuery from 'jquery'
 
 let $ = JQuery
 export default {
-  BASE_URL: 'http://localhost:3977/api/',
-  BASE_URL_SOCKET: 'http://localhost:3000/',
+  BASE_URL: 'http://127.0.0.1:3333/',
+  BASE_URL_SOCKET: 'http://localhost:3333',
   simpleRequest: function ({ url, type, params, resolve, reject, token }) {
     $.ajax({
       url: url,
       beforeSend: function (request) {
         if (token) {
-          request.setRequestHeader('Authorization', token)
+          request.setRequestHeader('Authorization', 'Bearer ' + token)
         }
         request.setRequestHeader('Access-Control-Allow-Origin', '*')
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')

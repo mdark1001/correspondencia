@@ -9,7 +9,6 @@ const CatalogoTipoDocumentos = function () {
             var options = {page: page, limit: total_items};
             let query = {};
             TipoDocumentoModel.paginate(query, options).then(function (result) {
-
                 if (!result) {
                     return res.status(404).send({
                         message: 'No existen documentos'
@@ -46,9 +45,7 @@ const CatalogoTipoDocumentos = function () {
                     return res.status(401).send({
                         message: 'Error no se ha guardado el tipo de documento'
                     })
-
             });
-
         }
     }
 

@@ -10,7 +10,7 @@ class UserServices {
 
   createUser (data) {
     return new Promise((resolve, reject) => {
-      axios.post(this.url + 'create', data).then(response => resolve(response)).catch(error => reject(error))
+      axios.post(this.url + 'register', data).then(response => resolve(response)).catch(error => reject(error))
     })
   }
 
@@ -33,7 +33,8 @@ class UserServices {
   getUser () {
     let user = window.localStorage.getItem('user')
     if (user) {
-      return JSON.parse(user)
+      let user_data = JSON.parse(user)
+      return user_data.data
     }
     return false
   }
@@ -60,7 +61,7 @@ class UserServices {
         return true
       }
     }
-    return false
+    return true
   }
 
   getUserId () {
@@ -77,6 +78,11 @@ class UserServices {
       return data.nombre_completo
     }
     return false
+  }
+
+  getFullName () {
+    let User = this.getUser()
+    return (User.user.name ? User.user.name : '') + ' ' + (User.perfil.ap_paterno ? User.perfil.ap_paterno : '')
   }
 }
 

@@ -8,8 +8,8 @@ class DocumentosServices {
   getAllDocumentos (token, page) {
     return new Promise((resolve, reject) => {
       base.simpleRequest({
-        url: this.url + 'catalogo/tipodocumento',
-        type: 'get',
+        url: this.url + 'tipodocumento',
+        type: 'GET',
         params: {
           page: page
         },
@@ -31,7 +31,7 @@ class DocumentosServices {
 
     return new Promise((resolve, reject) => {
       base.simpleRequest({
-        url: this.url + 'catalogo/tipodocumento',
+        url: this.url + 'tipodocumento',
         type: methodType,
         params: resultData,
         resolve: resolve,

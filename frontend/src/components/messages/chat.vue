@@ -46,18 +46,26 @@ export default {
   components: { Message, SendMessage },
   data: function () {
     return {
+      channel: null,
       mensajes: []
     }
   },
-  mounted: function () {
-    this.$io.on('sent_all', (data) => {
+  mounted: async function () {
+    this.channel = await this.$io.channel('chat').connect()
+    console.log(this.channel)
+    // this.channel.on('error', this.errorChatHandle)
+    this.channel.on('message', (data) => {
       this.mensajes.push(data)
       this.scrollToEnd()
     })
   },
   methods: {
     sendMessage: function (message) {
-      this.$io.emit('message', message)
+      // this.$io.emit('message', message)
+      this.$io.getSubscription('chat').emit('message', {
+        username: '',
+        body: message
+      })
       message.userData.display_name = 'Me'
       this.mensajes.push({
         message: message
@@ -70,6 +78,9 @@ export default {
 
       container.scrollTop = container.scrollHeight
       console.log(container.scrollTop)
+    },
+    errorChatHandle: function () {
+      alert('#error')
     }
   }
 }

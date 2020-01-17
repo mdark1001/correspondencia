@@ -15,7 +15,7 @@
           </div>
           <div class="columns is-mobile is-desktop">
             <div class="column  is-full">
-              <TableComponent :headers="campos" :ddata="documentos.docs" :showActions="false"></TableComponent>
+              <TableComponent :headers="campos" :ddata="documentos.data" :showActions="false"></TableComponent>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@ export default {
       campos: [
         { name: 'Nombre', value: 'nombre' },
         { name: 'Activo', value: 'active' },
-        { name: 'Fecha de creación', value: 'createdAt' }
+        { name: 'Fecha de creación', value: 'created_at' }
       ],
       documentos: []
     }
@@ -57,7 +57,7 @@ export default {
     buscarDocumentos: function (page) {
       documentosServices.getAllDocumentos(this.USER.getToken(), page).then(data => {
         console.log(data)
-        this.documentos = data.data
+        this.documentos = data
       }).catch(err => {
         alert(err)
       })
